@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { useStaticQuery, graphql, navigate } from 'gatsby'
 import { Location } from '@reach/router'
 
-import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import RestoreIcon from '@material-ui/icons/Restore'
@@ -31,7 +30,6 @@ const Layout = ({ children }) => {
       }
     }
   `)
-  const [value, setValue] = React.useState(0)
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
@@ -48,10 +46,7 @@ const Layout = ({ children }) => {
               return (
                 <BottomNavigation
                   value={location.pathname}
-                  onChange={(event, newValue) => {
-                    navigate(newValue)
-                    setValue(newValue)
-                  }}
+                  onChange={(event, newValue) => navigate(newValue)}
                   showLabels>
                   <BottomNavigationAction
                     value="/"
