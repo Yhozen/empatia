@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Button from 'react-bootstrap/Button'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollection } from 'react-firebase-hooks/firestore'
@@ -18,7 +17,7 @@ const IndexPage = () => {
       snapshotListenOptions: { includeMetadataChanges: true }
     }
   )
-  const login = () => auth.signInAnonymously()
+
   console.log(user)
   return (
     <Layout>
@@ -37,7 +36,7 @@ const IndexPage = () => {
       <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>
         <Image />
       </div>
-      <Button onClick={login}>Login</Button>
+      <Button onClick={() => auth.signInAnonymously()}>Login</Button>
       <p>
         Made with <span style={{ color: '#e25555' }}>&#9829;</span> in Chile
       </p>

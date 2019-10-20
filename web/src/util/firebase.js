@@ -14,9 +14,6 @@ const firebaseConfig = {
   measurementId: `G-${process.env.GATSBY_MEASURAMENT_ID}`
 }
 
-firebase.initializeApp(firebaseConfig)
-firebase.analytics()
-
-export const db = firebase.firestore()
-export const auth = firebase.auth()
-export default firebase
+export const app = firebase.initializeApp(firebaseConfig)
+export const auth = app.auth()
+export const db = app.firestore()
