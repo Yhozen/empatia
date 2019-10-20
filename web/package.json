@@ -22,7 +22,11 @@
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.10.2",
     "react-firebase-hooks": "^2.1.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "react-redux": "^7.1.1",
+    "react-redux-firebase": "^3.0.2",
+    "redux": "^4.0.4",
+    "redux-firestore": "^0.9.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

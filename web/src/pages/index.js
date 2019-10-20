@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useSelector } from 'react-redux'
+import { useFirestoreConnect } from 'react-redux-firebase'
 
 import Layout from '../components/layout'
 import Image from '../components/image'
@@ -10,25 +10,22 @@ import SEO from '../components/seo'
 import { db, auth } from '../util/firebase'
 
 const IndexPage = () => {
-  const [user, initialising, error] = useAuthState(auth)
-  const [value, loading, collectionError] = useCollection(
-    db.collection('viajes'),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  )
-
+  useFirestoreConnect([
+    { collection: 'viajes' } // or 'todos'
+  ])
+  const todos = useSelector(state => state.firestore.ordered.viajes)
+  console.log(todos)
   return (
     <Layout>
       <SEO title="Home" />
       <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.{user ? 'logged in' : 'no user'}</p>
+      <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great. as</p>
-      {value && (
+      {todos && (
         <span>
           Collection:{' '}
-          {value.docs.map(doc => (
-            <React.Fragment key={doc.id}>{doc.data().to}, </React.Fragment>
+          {todos.map(todo => (
+            <>{todo.to}, </>
           ))}
         </span>
       )}
