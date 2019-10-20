@@ -15,21 +15,37 @@ const rootReducer = combineReducers({
 })
 
 const initialState = {}
-const store = createStore(rootReducer, initialState)
 
-const rrfConfig = {}
+let lazyCreateStore
+if (typeof window !== `undefined`) {
+  lazyCreateStore = () =>
+    createStore(
+      rootReducer,
+      initialState,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+} else {
+  lazyCreateStore = () => createStore(rootReducer, initialState)
+}
+
+const rrfConfig = {
+  userProfile: 'users' // where profiles are stored in database
+}
 
 const rrfProps = {
   firebase: app,
   config: rrfConfig,
-  dispatch: store.dispatch,
   createFirestoreInstance // <- needed if using firestore
 }
 
-export default ({ element }) => (
-  <Provider store={store}>
-    <ReactReduxFirebaseProvider {...rrfProps}>
-      {element}
-    </ReactReduxFirebaseProvider>
-  </Provider>
-)
+export default ({ element }) => {
+  const store = lazyCreateStore()
+  return (
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider dispatch={store.dispatch} {...rrfProps}>
+        {element}
+      </ReactReduxFirebaseProvider>
+    </Provider>
+  )
+}

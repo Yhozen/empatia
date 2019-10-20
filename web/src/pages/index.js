@@ -14,7 +14,8 @@ const IndexPage = () => {
     { collection: 'viajes' } // or 'todos'
   ])
   const todos = useSelector(state => state.firestore.ordered.viajes)
-  console.log(todos)
+  const user = useSelector(state => state.firebase.profile)
+  console.log(user)
   return (
     <Layout>
       <SEO title="Home" />
