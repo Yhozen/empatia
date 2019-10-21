@@ -14,18 +14,3 @@ const IndexPage = () => {
 }
 
 export default IndexPage
-
-/* </div>
-      <FirebaseAuth />
-
-      {!isLoaded(user) ? (
-        <span>Loading...</span>
-      ) : isEmpty(user) ? (
-        <span>Not Authed</span>
-      ) : (
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      )}
-
-      <p>
-        Made with <span style={{ color: '#e25555' }}>&#9829;</span> in Chile
-      </p>*/

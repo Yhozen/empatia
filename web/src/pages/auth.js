@@ -6,7 +6,7 @@ import FirebaseAuth from '../components/firebaseAuth'
 export default () => {
   return (
     <>
-      <SEO title="Page two" />
+      <SEO title="Authentication" />
       <FirebaseAuth />
     </>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
-import useWindowSize from './useWindowSize'
+import useWindowSize from '../../util/useWindowSize'
 
 import Marker from './marker'
 import styles from './gmap-styles.json'
@@ -29,8 +29,9 @@ export default () => {
           lat: 59.95,
           lng: 30.33
         }}
-        defaultZoom={9}>
-        <Marker lat={59.955413} lng={30.337844} text="My Marker" />
+        defaultZoom={11}>
+        <Marker lat={59.955413} lng={30.337844} text="Cata" />
+        <Marker lat={59.95} lng={30.03} text="Peligro" />
       </GoogleMapReact>
     </div>
   )

@@ -16,7 +16,10 @@ import './layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Layout = ({ children }) => {
-  const user = useSelector(state => state.firebase.auth)
+  const user = useSelector(
+    state => state.firebase.auth,
+    (prev, curr) => prev.uid === curr.uid
+  )
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {

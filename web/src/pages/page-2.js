@@ -19,7 +19,12 @@ const SecondPage = () => {
       <h1>Hi from the second page {todos.map(todo => todo.to)}</h1>
       <p>Welcome to page 2</p>
       <Link to="/">Go back to the homepage</Link>
-      <Button onClick={() => firebase.logout()}>Logout</Button>
+      <Button
+        color="secondary"
+        variant="contained"
+        onClick={() => firebase.logout()}>
+        Logout
+      </Button>
     </Layout>
   )
 }
