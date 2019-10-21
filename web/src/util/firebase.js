@@ -14,14 +14,15 @@ const firebaseConfig = {
 }
 
 /*
-production
-export const app = firebase.initializeApp(firebaseConfig)
-export const auth = app.auth()
-export const db = app.firestore()
-*/
+production*/
+let app
 
-/* debug*/
-export const app =
-  typeof window !== `undefined` ? firebase.initializeApp(firebaseConfig) : null
-export const auth = typeof window !== `undefined` ? app.auth() : null
-export const db = typeof window !== `undefined` ? app.firestore() : null
+if (process.env.NODE_ENV === 'development') {
+  app =
+    typeof window !== `undefined`
+      ? firebase.initializeApp(firebaseConfig)
+      : null
+} else {
+  app = firebase.initializeApp(firebaseConfig)
+}
+export { app }

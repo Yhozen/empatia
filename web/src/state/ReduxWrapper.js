@@ -7,7 +7,7 @@ import {
 } from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore'
 
-import { db, auth, app } from '../util/firebase'
+import { app } from '../util/firebase'
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,

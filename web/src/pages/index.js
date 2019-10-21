@@ -1,21 +1,17 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import { useSelector } from 'react-redux'
-import {
-  useFirestoreConnect,
-  useFirebase,
-  isLoaded,
-  isEmpty
-} from 'react-redux-firebase'
+import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import * as firebaseui from 'firebaseui'
 
 import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 
+import providerIDs from '../util/providerIDs'
+
 const IndexPage = () => {
-  const firebase = useFirebase()
+  const firebase = typeof window !== 'undefined' && useFirebase()
   const user = useSelector(state => state.firebase.auth)
   return (
     <Layout>
@@ -35,7 +31,7 @@ const IndexPage = () => {
         uiConfig={{
           signInFlow: 'popup',
           signInSuccessUrl: '/signedIn',
-          signInOptions: [firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID],
+          signInOptions: providerIDs,
           callbacks: {
             signInSuccessWithAuthResult: (authResult, redirectUrl) => {
               firebase.handleRedirectResult(authResult).then(() => {
