@@ -23,7 +23,7 @@ summary {
   display: block;
 }
 main {
-  min-height: 100vh;
+  min-height: calc(100vh -100px);
   margin-bottom: -100px;
   padding-bottom: 100px;
 }
