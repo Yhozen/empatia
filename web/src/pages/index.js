@@ -22,7 +22,6 @@ const mapOptions = {
 }
 const IndexPage = () => {
   const user = useSelector(state => state.firebase.auth)
-  console.log(GOOGLE_MAP_KEY)
   return (
     <Layout>
       <div style={{ height: '50vh', width: '100%' }}>
