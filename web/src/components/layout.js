@@ -15,11 +15,11 @@ import Header from './header'
 import './layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+const equality = (prev, curr) =>
+  prev.uid === curr.uid && prev.isLoaded === curr.isLoaded
+
 const Layout = ({ children }) => {
-  const user = useSelector(
-    state => state.firebase.auth,
-    (prev, curr) => prev.uid === curr.uid
-  )
+  const user = useSelector(state => state.firebase.auth, equality)
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
       }
     }
   `)
-
+  console.log(user)
   if (!isLoaded(user)) return <span>Loading...</span>
   if (isEmpty(user)) navigate('/auth')
   return (
