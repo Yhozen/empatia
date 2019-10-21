@@ -1,14 +1,9 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql, navigate } from 'gatsby'
 import { Location } from '@reach/router'
+import { useSelector } from 'react-redux'
+import { isLoaded, isEmpty } from 'react-redux-firebase'
 
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
@@ -21,6 +16,7 @@ import './layout.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Layout = ({ children }) => {
+  const user = useSelector(state => state.firebase.auth)
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -30,13 +26,15 @@ const Layout = ({ children }) => {
       }
     }
   `)
+
+  if (!isLoaded(user)) return <span>Loading...</span>
+  if (isEmpty(user)) navigate('/auth')
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
           margin: '0 auto',
-          maxWidth: 960,
           paddingTop: 0
         }}>
         <main>{children}</main>
