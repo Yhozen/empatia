@@ -1,6 +1,5 @@
 {
   "name": "empatia-web",
-  "private": true,
   "description": "PWA",
   "version": "0.1.0",
   "author": "Gabriel Perez <gabriel@garox.org>",
