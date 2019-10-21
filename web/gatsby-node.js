@@ -18,6 +18,7 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
         if (regex.test(request)) {
           return callback(null, 'umd ' + request)
         }
+
         callback()
       })
     })

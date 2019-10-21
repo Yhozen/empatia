@@ -13,6 +13,15 @@ const firebaseConfig = {
   measurementId: `G-${process.env.GATSBY_MEASURAMENT_ID}`
 }
 
+/*
+production
 export const app = firebase.initializeApp(firebaseConfig)
 export const auth = app.auth()
 export const db = app.firestore()
+*/
+
+/* debug*/
+export const app =
+  typeof window !== `undefined` ? firebase.initializeApp(firebaseConfig) : null
+export const auth = typeof window !== `undefined` ? app.auth() : null
+export const db = typeof window !== `undefined` ? app.firestore() : null

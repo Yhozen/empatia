@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { createStore, combineReducers, compose } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import {
   ReactReduxFirebaseProvider,
   firebaseReducer
@@ -14,7 +14,14 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer
 })
 
-const initialState = {}
+const initialState = {
+  firestore: {
+    ordered: {
+      viajes: []
+    },
+    profile: null
+  }
+}
 
 let lazyCreateStore
 if (typeof window !== `undefined`) {
@@ -29,9 +36,7 @@ if (typeof window !== `undefined`) {
   lazyCreateStore = () => createStore(rootReducer, initialState)
 }
 
-const rrfConfig = {
-  userProfile: 'users' // where profiles are stored in database
-}
+const rrfConfig = {}
 
 const rrfProps = {
   firebase: app,
