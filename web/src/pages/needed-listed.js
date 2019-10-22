@@ -1,4 +1,5 @@
 import React from 'react'
+import { navigate } from 'gatsby'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useFirestoreConnect,
@@ -13,6 +14,7 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 
 import { getList, getSelected, setSelected } from '../state/CategoriesRedux'
+import { setNeeded } from '../state/DetailRedux'
 
 import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
@@ -25,9 +27,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 
 import { green, pink } from '@material-ui/core/colors'
 
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import LocalGasStationIcon from '@material-ui/icons/LocalGasStation'
+import icons from '../util/iconList'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -79,8 +79,13 @@ export default () => {
     }
   ])
   const needed = useSelector(state => state.firestore.ordered.needed)
-  console.log(needed)
-  const onClickItem = id => {}
+  const dispatch = useDispatch()
+
+  const onClickItem = id => {
+    dispatch(setNeeded(id))
+    navigate('./needed-detail')
+  }
+
   if (!isLoaded(needed)) {
     return <Skeleton variant="rect" width={210} height={118} />
   }
@@ -97,7 +102,7 @@ export default () => {
               <ListItem onClick={() => onClickItem(id)} button>
                 <ListItemAvatar>
                   <Avatar alt="Categoria">
-                    <ShoppingCartIcon />
+                    {icons[selectedData.iconName]}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={title} secondary={desc} />

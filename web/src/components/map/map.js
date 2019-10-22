@@ -7,6 +7,9 @@ import styles from './gmap-styles.json'
 
 const GOOGLE_MAP_KEY = process.env.GATSBY_GOOGLE_MAP_KEY
 
+const BOTTOM_BAR_HEIGHT = 56
+const HEADER_HEIGHT = 106.2
+
 const mapOptions = {
   gestureHandling: 'greedy',
   zoomControl: false,
@@ -42,7 +45,7 @@ export default () => {
   if (loading) return <div />
 
   return (
-    <div style={{ height: height - (56 + 106.2) }}>
+    <div style={{ height: height - (BOTTOM_BAR_HEIGHT + HEADER_HEIGHT) }}>
       <GoogleMapReact
         options={mapOptions}
         bootstrapURLKeys={{ key: GOOGLE_MAP_KEY }}
@@ -52,10 +55,8 @@ export default () => {
         }}
         defaultZoom={11}
         yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={onGoogleApiLoaded}>
-        <Marker lat={59.955413} lng={30.337844} text="Cata" />
-        <Marker lat={59.95} lng={30.03} text="Peligro" />
-      </GoogleMapReact>
+        onGoogleApiLoaded={onGoogleApiLoaded}
+      />
     </div>
   )
 }

@@ -12,6 +12,8 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import SnackbarContentWrapper from '../components/snackbarcontentwrapper'
 
+import getDisplayName from '../util/getDisplayName'
+
 import { getList, getSelected, setSelected } from '../state/CategoriesRedux'
 
 import Button from '@material-ui/core/Button'
@@ -46,7 +48,7 @@ export default () => {
     onSubmit: values =>
       firestore
         .collection('needed')
-        .add({ ...values, author: user.uid })
+        .add({ ...values, author: user.uid, displayName: getDisplayName(user) })
         .then(handleClick)
   })
 

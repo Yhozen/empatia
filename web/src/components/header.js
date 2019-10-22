@@ -1,14 +1,12 @@
-import { navigate } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
-
+import { navigate } from 'gatsby'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 
 const useStyles = makeStyles(theme => ({
@@ -31,11 +29,16 @@ const useStyles = makeStyles(theme => ({
 }))
 const Header = ({ siteTitle }) => {
   const classes = useStyles()
+  const goBack = () => typeof window !== 'undefined' && window.history.go(-1)
   return (
     <AppBar position="sticky">
       <Toolbar className={classes.toolbar}>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
+        <IconButton
+          onClick={goBack}
+          edge="start"
+          color="inherit"
+          aria-label="back">
+          <ArrowBackIosIcon />
         </IconButton>
         <Typography variant="h4" className={classes.title}>
           {siteTitle}
