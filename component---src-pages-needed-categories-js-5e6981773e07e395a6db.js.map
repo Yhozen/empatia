@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/pages/needed-categories.js"],"names":["navigate"],"mappings":"0FAAA,oCAGe,qBAEb,OADAA,mBAAS,KACF","file":"component---src-pages-needed-categories-js-5e6981773e07e395a6db.js","sourcesContent":["import React from 'react'\nimport { navigate } from 'gatsby'\n\nexport default () => {\n  navigate('/')\n  return <div />\n}\n"],"sourceRoot":""}
