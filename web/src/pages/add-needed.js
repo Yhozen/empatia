@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useFirestoreConnect,
@@ -10,6 +10,7 @@ import useFormal from '@kevinwolf/formal'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import SnackbarContentWrapper from '../components/snackbarcontentwrapper'
 
 import { getList, getSelected, setSelected } from '../state/CategoriesRedux'
 
@@ -22,6 +23,7 @@ import FormGroup from '@material-ui/core/FormGroup'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
+import Snackbar from '@material-ui/core/Snackbar'
 
 const schema = yup.object().shape({
   category: yup.number().required(),
@@ -37,16 +39,28 @@ export default () => {
   const firestore = useFirestore()
   const categories = useSelector(getList)
   const user = useSelector(state => state.firebase.auth)
-
+  const [open, setOpen] = useState(false)
   const formal = useFormal(initialValues, {
     schema,
     onSubmit: values =>
-      firestore.collection('needed').add({ ...values, author: user.uid })
+      firestore
+        .collection('needed')
+        .add({ ...values, author: user.uid })
+        .then(handleClick)
   })
+
+  const handleClick = () => setOpen(true)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpen(false)
+  }
 
   return (
     <Layout>
-      <SEO title="Necesito: categorias" />
+      <SEO title="Agregar necesidad" />
       <form style={{ width: '90%', maxWidth: '960px', margin: '0 auto' }}>
         <FormGroup>
           <FormControl>
@@ -93,6 +107,22 @@ export default () => {
         <Button variant="contained" color="primary" onClick={formal.submit}>
           Submit
         </Button>
+        <Button variant="contained" color="primary" onClick={handleClick}>
+          Submit
+        </Button>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          open={open}
+          autoHideDuration={2000}
+          onClose={handleClose}>
+          <SnackbarContentWrapper
+            variant="success"
+            message="Guardado exitosamente!"
+          />
+        </Snackbar>
       </form>
     </Layout>
   )
