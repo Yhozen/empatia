@@ -94,7 +94,7 @@ export default ({ type }) => {
     return <Skeleton variant="rect" width={210} height={118} />
   }
   if (isEmpty(detail)) {
-    return <p>nada</p>
+    navigate(`./${type}-listed`)
   }
   return (
     <Layout>

@@ -10,7 +10,8 @@ import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import MapIcon from '@material-ui/icons/Map'
 import FavoriteIcon from '@material-ui/icons/Favorite'
-import LocationOnIcon from '@material-ui/icons/LocationOn'
+import PanToolIcon from '@material-ui/icons/PanTool'
+import AddIcon from '@material-ui/icons/Add'
 
 import Header from './header'
 import './layout.css'
@@ -59,18 +60,23 @@ const Layout = ({ children }) => {
                   showLabels>
                   <BottomNavigationAction
                     value="/"
-                    label="Mapa"
-                    icon={<MapIcon />}
-                  />
-                  <BottomNavigationAction
-                    value="/needed-categories"
-                    label="Favorites"
+                    label="Necesito"
                     icon={<FavoriteIcon />}
                   />
                   <BottomNavigationAction
                     value="/offered-categories"
-                    label="Nearby"
-                    icon={<LocationOnIcon />}
+                    label="Ofrezco"
+                    icon={<PanToolIcon />}
+                  />
+                  <BottomNavigationAction
+                    value="/add"
+                    label="Agregar"
+                    icon={<AddIcon />}
+                  />
+                  <BottomNavigationAction
+                    value="/map"
+                    label="Map"
+                    icon={<MapIcon />}
                   />
                 </BottomNavigation>
               )

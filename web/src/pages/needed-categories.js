@@ -1,5 +1,7 @@
 import React from 'react'
+import { navigate } from 'gatsby'
 
-import Categories from '../components/categories'
-
-export default () => <Categories type="needed" />
+export default () => {
+  navigate('/')
+  return <div />
+}

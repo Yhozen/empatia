@@ -9,7 +9,10 @@ const GOOGLE_MAP_KEY = process.env.GATSBY_GOOGLE_MAP_KEY
 
 const BOTTOM_BAR_HEIGHT = 56
 const HEADER_HEIGHT = 106.2
-
+const CENTER = {
+  lat: -33.4201548,
+  lng: -70.6345987
+}
 const mapOptions = {
   gestureHandling: 'greedy',
   zoomControl: false,
@@ -49,11 +52,8 @@ export default () => {
       <GoogleMapReact
         options={mapOptions}
         bootstrapURLKeys={{ key: GOOGLE_MAP_KEY }}
-        defaultCenter={{
-          lat: 59.95,
-          lng: 30.33
-        }}
-        defaultZoom={11}
+        defaultCenter={CENTER}
+        defaultZoom={13}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={onGoogleApiLoaded}
       />

@@ -17,7 +17,7 @@ export default () => {
     <Layout>
       <SEO title="Mi cuenta" />
       <p>{displayName}</p>
-      <pre>{JSON.stringify(user, 2)}</pre>
+      <p>Work in progress</p>
       <Button
         onClick={onClick}
         variant="contained"

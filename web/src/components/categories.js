@@ -15,7 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
-import { pink } from '@material-ui/core/colors'
+import { pink, green } from '@material-ui/core/colors'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -59,6 +59,8 @@ export default ({ type }) => {
       ? { title: 'Categorias: Necesito', subtitle: 'La gente necesita' }
       : { title: 'Categorias: Ofrezco', subtitle: 'La gente ofrece' }
 
+  const _color = type === 'needed' ? pink : green
+
   const onClickItem = id => {
     dispatch(setSelected(id))
     navigate(`./${type}-listed`)
@@ -76,7 +78,7 @@ export default ({ type }) => {
             primary,
             secondary,
             iconName,
-            backgroundColor = pink[500],
+            backgroundColor = _color[500],
             color = '#fff'
           }) => (
             <React.Fragment key={id}>
