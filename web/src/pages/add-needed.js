@@ -19,68 +19,85 @@ import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 
 const schema = yup.object().shape({
-  age: yup.number().required(),
-  name: yup.string().required(),
+  category: yup.number().required(),
+  title: yup.string().required(),
   desc: yup.string().required()
 })
 
 const initialValues = {
-  age: 1
+  category: 1
 }
 
-const ListComponent = () => {
+export default () => {
+  const firestore = useFirestore()
   const categories = useSelector(getList)
+  const user = useSelector(state => state.firebase.auth)
+
   const formal = useFormal(initialValues, {
     schema,
-    onSubmit: values => console.log('Your values are:', values)
+    onSubmit: values =>
+      firestore.collection('needed').add({ ...values, author: user.uid })
   })
 
   return (
-    <form style={{ width: '90%', maxWidth: '960px', margin: '0 auto' }}>
-      <FormGroup>
-        <TextField
-          id="name"
-          label="Name"
-          fullWidth
-          value={formal.values.name}
-          onChange={e => formal.change('name', e.target.value)}
-          margin="normal"
-        />
-        {formal.errors.name && <div>{formal.errors.name}</div>}
-        <TextField
-          id="desc"
-          label="Desc"
-          fullWidth
-          value={formal.values.desc}
-          onChange={e => formal.change('desc', e.target.value)}
-          margin="normal"
-        />
-        {formal.errors.desc && <div>{formal.errors.desc}</div>}
-        <FormControl>
-          <InputLabel htmlFor="age-simple">Categoria</InputLabel>
-          <Select
-            autoWidth
-            value={formal.values.age}
-            onChange={e => formal.change('age', e.target.value)}>
-            {categories.map(({ id, primary }) => (
-              <MenuItem value={id} key={id}>
-                {primary}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </FormGroup>
+    <Layout>
+      <SEO title="Necesito: categorias" />
+      <form style={{ width: '90%', maxWidth: '960px', margin: '0 auto' }}>
+        <FormGroup>
+          <FormControl>
+            <InputLabel htmlFor="category-simple">Categoria</InputLabel>
+            <Select
+              autoWidth
+              value={formal.values.category}
+              onChange={e => formal.change('category', e.target.value)}>
+              {categories.map(({ id, primary }) => (
+                <MenuItem value={id} key={id}>
+                  {primary}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText> Si no esta, agregar en otros.</FormHelperText>
+          </FormControl>
+          <FormControl>
+            <TextField
+              id="title"
+              label="Titulo"
+              fullWidth
+              value={formal.values.title}
+              onChange={e => formal.change('title', e.target.value)}
+              margin="normal"
+            />
+            <FormHelperText>Some important helper text</FormHelperText>
+            {formal.errors.title && <div>{formal.errors.title}</div>}
+          </FormControl>
 
-      <Button variant="contained" color="primary" onClick={formal.submit}>
-        Submit
-      </Button>
-    </form>
+          <FormControl>
+            <TextField
+              id="desc"
+              label="Descripción"
+              fullWidth
+              value={formal.values.desc}
+              onChange={e => formal.change('desc', e.target.value)}
+              margin="normal"
+            />
+            {formal.errors.desc && <div>{formal.errors.desc}</div>}
+            <FormHelperText>Some important helper text</FormHelperText>
+          </FormControl>
+        </FormGroup>
+
+        <Button variant="contained" color="primary" onClick={formal.submit}>
+          Submit
+        </Button>
+      </form>
+    </Layout>
   )
 }
+/*
 const SecondPage = () => {
   const firestore = useFirestore()
   useFirestoreConnect([
@@ -95,11 +112,7 @@ const SecondPage = () => {
   console.log(todos)
   function addTodo() {
     const exampleTodo = { done: false, text: 'text2', author: user.uid }
-    return firestore
-      .collection('chatrooms')
-      .doc('test')
-      .collection('messages')
-      .add(exampleTodo)
+    return firestore.collection('needed').add(exampleTodo)
   }
   return (
     <Layout>
@@ -112,4 +125,4 @@ const SecondPage = () => {
   )
 }
 
-export default SecondPage
+ SecondPage*/

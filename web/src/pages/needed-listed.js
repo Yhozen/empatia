@@ -2,7 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useFirestoreConnect,
-  useFirebase,
+  isLoaded,
+  isEmpty,
   useFirestore
 } from 'react-redux-firebase'
 import { createSelector } from 'reselect'
@@ -65,35 +66,35 @@ const selectedDataSelector = createSelector(
 
 const ListComponent = () => {
   const classes = useStyles()
-  const messages = useSelector(getList)
   const selectedData = useSelector(selectedDataSelector)
-
+  useFirestoreConnect([
+    {
+      collection: 'needed',
+      where: ['category', '==', selectedData.id]
+    }
+  ])
+  const needed = useSelector(state => state.firestore.ordered.needed)
   const onClickItem = id => {}
-  console.log(selectedData)
+  console.log(needed)
   return (
-    <List className={classes.list}>
-      {messages.map(
-        ({
-          id,
-          primary,
-          secondary,
-          iconName,
-          backgroundColor = pink[500],
-          color = '#fff'
-        }) => (
-          <React.Fragment key={id}>
-            <ListItem onClick={() => onClickItem(id)} button>
-              <ListItemAvatar>
-                <Avatar alt="Categoria" style={{ backgroundColor, color }}>
-                  <ShoppingCartIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={primary} secondary={secondary} />
-            </ListItem>
-          </React.Fragment>
-        )
-      )}
-    </List>
+    <>
+      <p>{selectedData.primary}</p>
+      <List className={classes.list}>
+        {isLoaded(needed) &&
+          needed.map(({ title, desc, id }) => (
+            <React.Fragment key={id}>
+              <ListItem onClick={() => onClickItem(id)} button>
+                <ListItemAvatar>
+                  <Avatar alt="Categoria">
+                    <ShoppingCartIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={title} secondary={desc} />
+              </ListItem>
+            </React.Fragment>
+          ))}
+      </List>
+    </>
   )
 }
 const SecondPage = () => {
