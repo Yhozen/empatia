@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
 const detailSelector = createSelector(
   state => state.firestore.ordered.detailedNeed,
   detailedNeed =>
-    detailedNeed && detailedNeed.length === 1 ? detailedNeed[0] : null
+    detailedNeed && detailedNeed.length === 1 ? detailedNeed[0] : {}
 )
 export default ({ type }) => {
   const classes = useStyles()
