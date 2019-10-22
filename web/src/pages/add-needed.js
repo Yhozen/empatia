@@ -60,7 +60,7 @@ export default () => {
 
   return (
     <Layout>
-      <SEO title="Agregar necesidad" />
+      <SEO title="Necesito..." />
       <form style={{ width: '90%', maxWidth: '960px', margin: '0 auto' }}>
         <FormGroup>
           <FormControl>
@@ -86,8 +86,9 @@ export default () => {
               onChange={e => formal.change('title', e.target.value)}
               margin="normal"
             />
-            <FormHelperText>Some important helper text</FormHelperText>
-            {formal.errors.title && <div>{formal.errors.title}</div>}
+            {formal.errors.title && (
+              <FormHelperText error>{formal.errors.title}</FormHelperText>
+            )}
           </FormControl>
 
           <FormControl>
@@ -99,17 +100,15 @@ export default () => {
               onChange={e => formal.change('desc', e.target.value)}
               margin="normal"
             />
-            {formal.errors.desc && <div>{formal.errors.desc}</div>}
-            <FormHelperText>Some important helper text</FormHelperText>
+            {formal.errors.desc && (
+              <FormHelperText error>{formal.errors.desc}</FormHelperText>
+            )}
           </FormControl>
+          <Button variant="contained" color="primary" onClick={formal.submit}>
+            Submit
+          </Button>
         </FormGroup>
 
-        <Button variant="contained" color="primary" onClick={formal.submit}>
-          Submit
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleClick}>
-          Submit
-        </Button>
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',

@@ -19,6 +19,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const equality = (prev, curr) =>
   prev.uid === curr.uid && prev.isLoaded === curr.isLoaded
 
+const withoutPrefix = path => path.split(__PATH_PREFIX__).join('')
+
 const Layout = ({ children }) => {
   const user = useSelector(state => state.firebase.auth, equality)
   const data = useStaticQuery(graphql`
@@ -52,7 +54,7 @@ const Layout = ({ children }) => {
             {({ location }) => {
               return (
                 <BottomNavigation
-                  value={location.pathname}
+                  value={withoutPrefix(location.pathname)}
                   onChange={(event, newValue) => navigate(newValue)}
                   showLabels>
                   <BottomNavigationAction

@@ -97,35 +97,11 @@ const ListComponent = () => {
     </>
   )
 }
-const SecondPage = () => {
-  const firestore = useFirestore()
-  useFirestoreConnect([
-    {
-      collection: 'todos',
-      doc: 'Z8RnGXNA6YA9ph2hitjL',
-      subcollections: [{ collection: 'messages', limit: 1 }]
-    }
-  ])
-  const user = useSelector(state => state.firebase.auth)
-  const todos = useSelector(state => state.firestore.ordered.todos)
-  console.log(todos)
-  function addTodo() {
-    const exampleTodo = { done: false, text: 'text2', author: user.uid }
-    return firestore
-      .collection('chatrooms')
-      .doc('test')
-      .collection('messages')
-      .add(exampleTodo)
-  }
+export default () => {
   return (
     <Layout>
       <SEO title="Necesito: categorias" />
       <ListComponent />
-      <Button color="secondary" variant="contained" onClick={addTodo}>
-        Logout
-      </Button>
     </Layout>
   )
 }
-
-export default SecondPage
