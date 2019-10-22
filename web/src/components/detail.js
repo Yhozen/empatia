@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useFirestoreConnect,
@@ -93,9 +93,12 @@ export default ({ type }) => {
   if (!isLoaded(detail)) {
     return <Skeleton variant="rect" width={210} height={118} />
   }
-  if (isEmpty(detail)) {
-    navigate(`./${type}-listed`)
-  }
+  useEffect(() => {
+    if (isEmpty(detail)) {
+      navigate(`./${type}-listed`)
+    }
+  }, [detail])
+
   return (
     <Layout>
       <SEO title={textos.title + detail.title} />
