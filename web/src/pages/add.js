@@ -32,7 +32,8 @@ const schema = yup.object().shape({
   category: yup.number().required(),
   title: yup.string().required(),
   desc: yup.string().required(),
-  location: yup.string().required()
+  contact: yup.string(),
+  location: yup.string()
 })
 
 const initialValues = {
@@ -48,7 +49,7 @@ export default () => {
     schema,
     onSubmit: values =>
       firestore
-        .collection(values.type)
+        .collection('posts')
         .add({ ...values, author: user.uid, displayName: getDisplayName(user) })
         .then(handleClick)
   })
@@ -75,6 +76,7 @@ export default () => {
               onChange={e => formal.change('type', e.target.value)}>
               <MenuItem value="needed">Necesito</MenuItem>
               <MenuItem value="offered">Ofrezco</MenuItem>
+              <MenuItem value="tip">Dato</MenuItem>
             </Select>
           </FormControl>
           <FormControl>
@@ -104,7 +106,6 @@ export default () => {
               <FormHelperText error>{formal.errors.title}</FormHelperText>
             )}
           </FormControl>
-
           <FormControl>
             <TextField
               id="desc"
@@ -116,6 +117,23 @@ export default () => {
             />
             {formal.errors.desc && (
               <FormHelperText error>{formal.errors.desc}</FormHelperText>
+            )}
+          </FormControl>
+          <FormControl>
+            <TextField
+              id="contact"
+              label="Contacto"
+              fullWidth
+              value={formal.values.contact}
+              onChange={e => formal.change('contact', e.target.value)}
+              margin="normal"
+            />
+            {formal.errors.contact ? (
+              <FormHelperText error>{formal.errors.contact}</FormHelperText>
+            ) : (
+              <FormHelperText>
+                Número, instagram o alguna forma de contactarte.
+              </FormHelperText>
             )}
           </FormControl>
           <FormControl>

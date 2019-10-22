@@ -60,12 +60,12 @@ const Layout = ({ children }) => {
                   showLabels>
                   <BottomNavigationAction
                     value="/"
-                    label="Necesito"
+                    label="Listado"
                     icon={<FavoriteIcon />}
                   />
                   <BottomNavigationAction
-                    value="/offered-categories"
-                    label="Ofrezco"
+                    value="/categories"
+                    label="Categorias"
                     icon={<PanToolIcon />}
                   />
                   <BottomNavigationAction

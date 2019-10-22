@@ -15,7 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
-import { pink, green } from '@material-ui/core/colors'
+import { pink, green, blue } from '@material-ui/core/colors'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -54,23 +54,15 @@ export default ({ type }) => {
   const messages = useSelector(getList)
   const dispatch = useDispatch()
 
-  const textos =
-    type === 'needed'
-      ? { title: 'Categorias: Necesito', subtitle: 'La gente necesita' }
-      : { title: 'Categorias: Ofrezco', subtitle: 'La gente ofrece' }
-
-  const _color = type === 'needed' ? pink : green
-
   const onClickItem = id => {
     dispatch(setSelected(id))
-    navigate(`./${type}-listed`)
+    navigate(`./listed`)
   }
+
   return (
     <Layout>
-      <SEO title={textos.title} />
-      <Typography color="textSecondary" gutterBottom>
-        {textos.subtitle}
-      </Typography>
+      <SEO title="Filtrar por categorias" />
+      <Typography color="textSecondary" gutterBottom></Typography>
       <List className={classes.list}>
         {messages.map(
           ({
@@ -78,7 +70,7 @@ export default ({ type }) => {
             primary,
             secondary,
             iconName,
-            backgroundColor = _color[500],
+            backgroundColor = blue[500],
             color = '#fff'
           }) => (
             <React.Fragment key={id}>

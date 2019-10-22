@@ -1,5 +1,5 @@
 import React from 'react'
 
-import Categories from '../components/categories'
+import Listed from '../components/listed'
 
-export default () => <Categories type="needed" />
+export default () => <Listed />

@@ -2,4 +2,4 @@ import React from 'react'
 
 import Detail from '../components/detail'
 
-export default () => <Detail type="needed" />
+export default () => <Detail />

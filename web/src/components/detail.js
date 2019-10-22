@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { navigate } from 'gatsby'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useFirestoreConnect,
@@ -73,12 +74,13 @@ const detailSelector = createSelector(
   detailedNeed =>
     detailedNeed && detailedNeed.length === 1 ? detailedNeed[0] : {}
 )
+
 export default ({ type }) => {
   const classes = useStyles()
   const detailId = useSelector(getDetailId)
   useFirestoreConnect([
     {
-      collection: type,
+      collection: 'posts',
       doc: detailId,
       storeAs: 'detailedNeed'
     }
@@ -93,11 +95,6 @@ export default ({ type }) => {
   if (!isLoaded(detail)) {
     return <Skeleton variant="rect" width={210} height={118} />
   }
-  useEffect(() => {
-    if (isEmpty(detail)) {
-      navigate(`./${type}-listed`)
-    }
-  }, [detail])
 
   return (
     <Layout>
@@ -114,7 +111,7 @@ export default ({ type }) => {
             {detail.title}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            {detail.location} | {detail.displayName}
+            {detail.location} | {detail.displayName} | {detail.contact}
           </Typography>
           <Typography variant="body2" component="p">
             {detail.desc}
