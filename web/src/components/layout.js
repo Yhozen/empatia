@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql, navigate } from 'gatsby'
 import { Location } from '@reach/router'
@@ -7,7 +8,7 @@ import { isLoaded, isEmpty } from 'react-redux-firebase'
 
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import RestoreIcon from '@material-ui/icons/Restore'
+import MapIcon from '@material-ui/icons/Map'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 
@@ -29,11 +30,16 @@ const Layout = ({ children }) => {
       }
     }
   `)
-  console.log(user)
   if (!isLoaded(user)) return <span>Loading...</span>
   if (isEmpty(user)) navigate('/auth')
   return (
     <>
+      <Helmet>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Helmet>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
@@ -51,16 +57,16 @@ const Layout = ({ children }) => {
                   showLabels>
                   <BottomNavigationAction
                     value="/"
-                    label="Recents"
-                    icon={<RestoreIcon />}
+                    label="Mapa"
+                    icon={<MapIcon />}
                   />
                   <BottomNavigationAction
-                    value="/page-2"
+                    value="/needed-categories"
                     label="Favorites"
                     icon={<FavoriteIcon />}
                   />
                   <BottomNavigationAction
-                    value="/404"
+                    value="/offered-categories"
                     label="Nearby"
                     icon={<LocationOnIcon />}
                   />
