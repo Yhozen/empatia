@@ -64,8 +64,6 @@ export const {
   slice: 'categories',
   initial: INITIAL_STATE,
   actions: {
-    setSelected: (state, payload) => {
-      return { ...state, selected: payload }
-    }
+    setSelected: (state, payload) => ({ ...state, selected: payload })
   }
 })
