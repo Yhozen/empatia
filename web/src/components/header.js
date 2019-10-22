@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 const Header = ({ siteTitle }) => {
   const classes = useStyles()
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar className={classes.toolbar}>
         <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
@@ -41,7 +41,7 @@ const Header = ({ siteTitle }) => {
           {siteTitle}
         </Typography>
         <IconButton
-          onClick={() => navigate('/chat')}
+          onClick={() => navigate('/me')}
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"

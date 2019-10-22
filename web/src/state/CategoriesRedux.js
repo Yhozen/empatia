@@ -7,13 +7,13 @@ const INITIAL_STATE = {
       id: 0,
       primary: 'Comida',
       secondary: 'Pan, leche, harina ...etc.',
-      iconName: 'FavoriteIcon'
+      iconName: 'KitchenIcon'
     },
     {
       id: 1,
       primary: 'Asistencia Médica',
       secondary: `Primeros auxilios, psicologos, ...etc.`,
-      iconName: 'FavoriteIcon'
+      iconName: 'LocalHospitalIcon'
     },
     {
       id: 2,
@@ -24,14 +24,14 @@ const INITIAL_STATE = {
     {
       id: 3,
       primary: 'Mascotas',
-      secondary: 'Veterinarios, comida',
-      iconName: 'FavoriteIcon'
+      secondary: 'Veterinarios, comida para mascotas',
+      iconName: 'PetsIcon'
     },
     {
       id: 4,
       primary: 'Agua',
       secondary: `Agua o bebestibles.`,
-      iconName: 'FavoriteIcon'
+      iconName: 'LocalDrinkIcon'
     },
     {
       id: 5,
@@ -43,13 +43,25 @@ const INITIAL_STATE = {
       id: 6,
       primary: 'Transporte',
       secondary: 'Medios de transportes públicos y #subete',
-      iconName: 'FavoriteIcon'
+      iconName: 'AirportShuttleIcon'
     },
     {
       id: 7,
       primary: 'Supermercados',
       secondary: 'Datos de supermercados, minimarkets y ferias abastecidas',
       iconName: 'ShoppingCartIcon'
+    },
+    {
+      id: 8,
+      primary: 'Banco',
+      secondary: 'Banco o cajero funcionando',
+      iconName: 'AccountBalanceIcon'
+    },
+    {
+      id: 9,
+      primary: 'Otros',
+      secondary: 'Todo que no entra en las categorias anteriores',
+      iconName: 'ChatBubbleIcon'
     }
   ]
 }

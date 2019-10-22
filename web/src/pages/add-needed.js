@@ -28,7 +28,8 @@ import Snackbar from '@material-ui/core/Snackbar'
 const schema = yup.object().shape({
   category: yup.number().required(),
   title: yup.string().required(),
-  desc: yup.string().required()
+  desc: yup.string().required(),
+  location: yup.string().required()
 })
 
 const initialValues = {
@@ -98,6 +99,19 @@ export default () => {
               fullWidth
               value={formal.values.desc}
               onChange={e => formal.change('desc', e.target.value)}
+              margin="normal"
+            />
+            {formal.errors.desc && (
+              <FormHelperText error>{formal.errors.desc}</FormHelperText>
+            )}
+          </FormControl>
+          <FormControl>
+            <TextField
+              id="location"
+              label="Ubicación"
+              fullWidth
+              value={formal.values.location}
+              onChange={e => formal.change('location', e.target.value)}
               margin="normal"
             />
             {formal.errors.desc && (

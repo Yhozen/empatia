@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Empatia',
+    title: 'Yo te ayudo',
     description:
       'Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.',
     author: '@Yhozen'

@@ -10,6 +10,7 @@ import { createSelector } from 'reselect'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import icons from '../util/iconList'
 
 import { getList, getSelected, setSelected } from '../state/CategoriesRedux'
 
@@ -22,17 +23,7 @@ import Avatar from '@material-ui/core/Avatar'
 
 import { green, pink } from '@material-ui/core/colors'
 
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import LocalGasStationIcon from '@material-ui/icons/LocalGasStation'
-
 import { makeStyles } from '@material-ui/core/styles'
-
-const icons = {
-  ShoppingCartIcon: <ShoppingCartIcon />,
-  FavoriteIcon: <FavoriteIcon />,
-  LocalGasStationIcon: <LocalGasStationIcon />
-}
 
 const useStyles = makeStyles(theme => ({
   text: {
@@ -121,11 +112,8 @@ const SecondPage = () => {
   }
   return (
     <Layout>
-      <SEO title="Necesito: categorias" />
+      <SEO title="Categorias: Necesito" />
       <ListComponent />
-      <Button color="secondary" variant="contained" onClick={addTodo}>
-        Logout
-      </Button>
     </Layout>
   )
 }

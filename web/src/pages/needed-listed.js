@@ -7,6 +7,7 @@ import {
   useFirestore
 } from 'react-redux-firebase'
 import { createSelector } from 'reselect'
+import dayjs from 'dayjs'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -18,7 +19,9 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
+import ListSubheader from '@material-ui/core/ListSubheader'
 import Avatar from '@material-ui/core/Avatar'
+import Skeleton from '@material-ui/lab/Skeleton'
 
 import { green, pink } from '@material-ui/core/colors'
 
@@ -64,22 +67,30 @@ const selectedDataSelector = createSelector(
   (list, selected) => list[selected]
 )
 
-const ListComponent = () => {
+export default () => {
   const classes = useStyles()
   const selectedData = useSelector(selectedDataSelector)
   useFirestoreConnect([
     {
       collection: 'needed',
+      orderBy: ['createdAt', 'desc'],
+      limit: 100,
       where: ['category', '==', selectedData.id]
     }
   ])
   const needed = useSelector(state => state.firestore.ordered.needed)
-  const onClickItem = id => {}
   console.log(needed)
+  const onClickItem = id => {}
+  if (!isLoaded(needed)) {
+    return <Skeleton variant="rect" width={210} height={118} />
+  }
   return (
-    <>
-      <p>{selectedData.primary}</p>
+    <Layout>
+      <SEO title={'Necesito: ' + selectedData.primary} />
       <List className={classes.list}>
+        <ListSubheader className={classes.subheader}>
+          {selectedData.primary}
+        </ListSubheader>
         {isLoaded(needed) &&
           needed.map(({ title, desc, id }) => (
             <React.Fragment key={id}>
@@ -94,14 +105,6 @@ const ListComponent = () => {
             </React.Fragment>
           ))}
       </List>
-    </>
-  )
-}
-export default () => {
-  return (
-    <Layout>
-      <SEO title="Necesito: categorias" />
-      <ListComponent />
     </Layout>
   )
 }
