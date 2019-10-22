@@ -1,5 +1,4 @@
 import React from 'react'
-import { navigate } from 'gatsby'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   useFirestoreConnect,
@@ -27,12 +26,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation'
 
 import { makeStyles } from '@material-ui/core/styles'
-
-const icons = {
-  ShoppingCartIcon: <ShoppingCartIcon />,
-  FavoriteIcon: <FavoriteIcon />,
-  LocalGasStationIcon: <LocalGasStationIcon />
-}
 
 const useStyles = makeStyles(theme => ({
   text: {
@@ -64,15 +57,19 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+const selectedDataSelector = createSelector(
+  getList,
+  getSelected,
+  (list, selected) => list[selected]
+)
+
 const ListComponent = () => {
   const classes = useStyles()
   const messages = useSelector(getList)
-  const dispatch = useDispatch()
+  const selectedData = useSelector(selectedDataSelector)
 
-  const onClickItem = id => {
-    dispatch(setSelected(id))
-    navigate('./needed-listed')
-  }
+  const onClickItem = id => {}
+  console.log(selectedData)
   return (
     <List className={classes.list}>
       {messages.map(
@@ -88,7 +85,7 @@ const ListComponent = () => {
             <ListItem onClick={() => onClickItem(id)} button>
               <ListItemAvatar>
                 <Avatar alt="Categoria" style={{ backgroundColor, color }}>
-                  {icons[iconName]}
+                  <ShoppingCartIcon />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={primary} secondary={secondary} />

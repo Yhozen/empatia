@@ -9,9 +9,12 @@ import { createFirestoreInstance, firestoreReducer } from 'redux-firestore'
 
 import { app } from '../util/firebase'
 
+import { reducer as categoriesReducer } from './CategoriesRedux'
+
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
-  firestore: firestoreReducer
+  firestore: firestoreReducer,
+  categories: categoriesReducer
 })
 
 const initialState = {
