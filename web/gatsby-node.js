@@ -15,10 +15,12 @@ exports.onCreateWebpackConfig = ({ stage, actions, loaders, getConfig }) => {
       ) {
         const regex = /^@?firebase(\/(.+))?/
         const regex2 = /react-firebaseui/
+        const regex3 = /firebase\/analytics/
         // exclude firebase products from being bundled, so they will be loaded using require() at runtime.
         if (
           regex.test(request) ||
           regex2.test(request) ||
+          regex3.test(request) ||
           request === 'firebaseui'
         ) {
           return callback(null, 'umd ' + request)
