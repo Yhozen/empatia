@@ -59,6 +59,13 @@ const INITIAL_STATE = {
     },
     {
       id: 9,
+      primary: 'Puntos de ayuda / Recolección',
+      secondary:
+        'Lugares en donde se va a dejar diversas ayudas a personales en función, como lo son los bomberos. También lugares de limpieza común',
+      iconName: 'ContactSupportIcon'
+    },
+    {
+      id: 10,
       primary: 'Otros',
       secondary: 'Todo que no entra en las categorias anteriores',
       iconName: 'ChatBubbleIcon'

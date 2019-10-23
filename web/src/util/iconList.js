@@ -10,7 +10,7 @@ import KitchenIcon from '@material-ui/icons/Kitchen'
 import AirportShuttleIcon from '@material-ui/icons/AirportShuttle'
 import PetsIcon from '@material-ui/icons/Pets'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
-
+import ContactSupportIcon from '@material-ui/icons/ContactSupport'
 export default {
   ShoppingCartIcon: <ShoppingCartIcon />,
   FavoriteIcon: <FavoriteIcon />,
@@ -21,5 +21,6 @@ export default {
   LocalDrinkIcon: <LocalDrinkIcon />,
   AirportShuttleIcon: <AirportShuttleIcon />,
   PetsIcon: <PetsIcon />,
-  ChatBubbleIcon: <ChatBubbleIcon />
+  ChatBubbleIcon: <ChatBubbleIcon />,
+  ContactSupportIcon: <ContactSupportIcon />
 }
