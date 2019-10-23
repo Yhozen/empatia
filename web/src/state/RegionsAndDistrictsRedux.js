@@ -14,7 +14,7 @@ export const {
   reducer,
   initial,
   slice,
-  actions: { setNeeded, setOffered },
+  actions: { setRegion, setComuna },
   selectors: { getSelected, getData }
 } = autodux({
   slice: 'regions',
@@ -22,11 +22,11 @@ export const {
   actions: {
     setRegion: (state, payload) => ({
       ...state,
-      selected: { comuna: state.selected.comuna, region: payload }
+      selected: { comuna: 0, region: payload }
     }),
     setComuna: (state, payload) => ({
       ...state,
-      selected: { comuna: paylod, region: state.selected.region }
+      selected: { comuna: payload, region: state.selected.region }
     })
   }
 })

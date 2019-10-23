@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 import { useSelector, useDispatch } from 'react-redux'
 import { useFirestoreConnect, isLoaded } from 'react-redux-firebase'
@@ -9,6 +9,12 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 
 import { getList, getSelected } from '../state/CategoriesRedux'
+import {
+  getData as getRegions,
+  getSelected as getSelectedRegion,
+  setRegion,
+  setComuna
+} from '../state/RegionsAndDistrictsRedux'
 import { setNeeded, setOffered } from '../state/DetailRedux'
 
 import List from '@material-ui/core/List'
@@ -17,7 +23,10 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Skeleton from '@material-ui/lab/Skeleton'
-import Typography from '@material-ui/core/Typography'
+import Select from '@material-ui/core/Select'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import Switch from '@material-ui/core/Switch'
 
 import { green, pink, blue } from '@material-ui/core/colors'
 
@@ -69,22 +78,67 @@ const selectedDataSelector = createSelector(
   (list, selected) => list[selected]
 )
 
-export default ({ filter }) => {
-  const classes = useStyles()
-  const selectedData = useSelector(selectedDataSelector)
-  const _query = {
+const regionesSelector = createSelector(
+  getRegions,
+  data => data.map(({ region }) => region)
+)
+const comunasSelector = createSelector(
+  getRegions,
+  getSelectedRegion,
+  (regions, selected) => regions[selected.region].comunas
+)
+
+const getQuery = (categoryFilter, locationFilter, category, location) => {
+  const query = {
     collection: 'posts',
     orderBy: ['createdAt', 'desc'],
     limit: 100
   }
-  const query = filter
-    ? { ..._query, where: ['category', '==', selectedData.id] }
-    : _query
+  if (categoryFilter && locationFilter) {
+    return {
+      ...query,
+      where: [
+        ['category', '==', category],
+        ['region', '==', location.region],
+        ['comuna', '==', location.comuna]
+      ]
+    }
+  } else if (locationFilter) {
+    return {
+      ...query,
+      where: [
+        ['region', '==', location.region],
+        ['comuna', '==', location.comuna]
+      ]
+    }
+  } else if (categoryFilter) {
+    return {
+      ...query,
+      where: ['category', '==', category]
+    }
+  } else {
+    return query
+  }
+}
 
+export default ({ filter }) => {
+  const classes = useStyles()
+  const selectedData = useSelector(selectedDataSelector)
+  const [locationFilter, setLocationFilter] = useState(false)
+  const comunas = useSelector(comunasSelector)
+  const regiones = useSelector(regionesSelector)
+  const selectedRegionAndDistrict = useSelector(getSelectedRegion)
+  const query = getQuery(
+    filter,
+    locationFilter,
+    selectedData.id,
+    selectedRegionAndDistrict
+  )
   useFirestoreConnect([query])
   const posts = useSelector(state => state.firestore.ordered.posts)
   const categories = useSelector(getList)
   const dispatch = useDispatch()
+  const toggleLocationFilter = () => setLocationFilter(bool => !bool)
   const setAccordingly = type === 'needed' ? setNeeded : setOffered
 
   const textos =
@@ -103,6 +157,53 @@ export default ({ filter }) => {
   return (
     <Layout>
       <SEO title={textos.title} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center'
+        }}>
+        <Switch
+          checked={locationFilter}
+          onChange={toggleLocationFilter}
+          value="checkedB"
+          color="primary"
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+        <div
+          style={{
+            margin: 'auto 10px'
+          }}>
+          <InputLabel htmlFor="category-simple">Region</InputLabel>
+          <Select
+            autoWidth
+            value={selectedRegionAndDistrict.region}
+            onChange={e => dispatch(setRegion(e.target.value))}>
+            {regiones.map((region, i) => (
+              <MenuItem value={i} key={i}>
+                {region}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+        <div
+          style={{
+            margin: 'auto 10px'
+          }}>
+          <InputLabel htmlFor="category-simple">Comuna</InputLabel>
+          <Select
+            autoWidth
+            value={selectedRegionAndDistrict.comuna}
+            onChange={e => dispatch(setComuna(e.target.value))}>
+            {comunas.map((comuna, i) => (
+              <MenuItem value={i} key={i}>
+                {comuna}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+      </div>
       <List className={classes.list}>
         {isLoaded(posts) &&
           posts.map(
