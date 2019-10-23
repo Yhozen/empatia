@@ -20,15 +20,24 @@ import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Select from '@material-ui/core/Select'
-import InputLabel from '@material-ui/core/InputLabel'
 import Snackbar from '@material-ui/core/Snackbar'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+
+import ListItemText from '@material-ui/core/ListItemText'
+import Checkbox from '@material-ui/core/Checkbox'
+import Chip from '@material-ui/core/Chip'
+
 import { makeStyles } from '@material-ui/core/styles'
 
 const schema = yup.object().shape({
   type: yup.string().required(),
   category: yup.number().required(),
   region: yup.number().required(),
-  comuna: yup.number().required(),
+  comuna: yup
+    .array()
+    .of(yup.number())
+    .required(),
   title: yup.string().required(),
   desc: yup.string().required(),
   contact: yup.string(),
@@ -46,7 +55,7 @@ const useStyles = makeStyles(theme => ({
 const initialValues = {
   category: 1,
   region: 14,
-  comuna: 0
+  comuna: [0]
 }
 
 const regionesSelector = createSelector(
@@ -75,9 +84,11 @@ export default () => {
     data => data[formal.values.region].comunas
   )
   const comunas = useSelector(comunasSelector)
-
+  const [personName, setPersonName] = React.useState([])
   const handleClick = () => setOpen(true)
-
+  const handleChange = event => {
+    setPersonName(event.target.value)
+  }
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -174,12 +185,16 @@ export default () => {
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="category-simple">Comuna</InputLabel>
             <Select
+              multiple
+              input={<Input id="select-multiple-checkbox" />}
+              renderValue={() => 'Comunas'}
               autoWidth
               value={formal.values.comuna}
               onChange={e => formal.change('comuna', e.target.value)}>
               {comunas.map((comuna, i) => (
                 <MenuItem value={i} key={i}>
-                  {comuna}
+                  <Checkbox checked={formal.values.comuna.indexOf(i) > -1} />
+                  <ListItemText primary={comuna} />
                 </MenuItem>
               ))}
             </Select>

@@ -100,7 +100,7 @@ const getQuery = (categoryFilter, locationFilter, category, location) => {
       where: [
         ['category', '==', category],
         ['region', '==', location.region],
-        ['comuna', '==', location.comuna]
+        ['comuna', 'array-contains', location.comuna]
       ]
     }
   } else if (locationFilter) {
@@ -108,7 +108,7 @@ const getQuery = (categoryFilter, locationFilter, category, location) => {
       ...query,
       where: [
         ['region', '==', location.region],
-        ['comuna', '==', location.comuna]
+        ['comuna', 'array-contains', location.comuna]
       ]
     }
   } else if (categoryFilter) {
