@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  useFirestoreConnect,
-  useFirebase,
-  useFirestore
-} from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
+import { useFirestore } from 'react-redux-firebase'
 import * as yup from 'yup'
 import useFormal from '@kevinwolf/formal'
+import { createSelector } from 'reselect'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -14,10 +11,9 @@ import SnackbarContentWrapper from '../components/snackbarcontentwrapper'
 
 import getDisplayName from '../util/getDisplayName'
 
-import { getList, getSelected, setSelected } from '../state/CategoriesRedux'
+import { getList } from '../state/CategoriesRedux'
 
 import Button from '@material-ui/core/Button'
-
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
@@ -26,25 +22,45 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import Snackbar from '@material-ui/core/Snackbar'
+import { makeStyles } from '@material-ui/core/styles'
 
 const schema = yup.object().shape({
   type: yup.string().required(),
   category: yup.number().required(),
+  region: yup.number().required(),
+  comuna: yup.number().required(),
   title: yup.string().required(),
   desc: yup.string().required(),
   contact: yup.string(),
   location: yup.string()
 })
 
+import { getData } from '../state/RegionsAndDistrictsRedux'
+
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: '10 auto'
+  }
+}))
+
 const initialValues = {
-  category: 1
+  category: 1,
+  region: 14,
+  comuna: 0
 }
+
+const regionesSelector = createSelector(
+  getData,
+  data => data.map(({ region }) => region)
+)
 
 export default () => {
   const firestore = useFirestore()
   const categories = useSelector(getList)
+  const regiones = useSelector(regionesSelector)
   const user = useSelector(state => state.firebase.auth)
   const [open, setOpen] = useState(false)
+  const classes = useStyles()
   const formal = useFormal(initialValues, {
     schema,
     onSubmit: values =>
@@ -53,6 +69,12 @@ export default () => {
         .add({ ...values, author: user.uid, displayName: getDisplayName(user) })
         .then(handleClick)
   })
+
+  const comunasSelector = createSelector(
+    getData,
+    data => data[formal.values.region].comunas
+  )
+  const comunas = useSelector(comunasSelector)
 
   const handleClick = () => setOpen(true)
 
@@ -68,7 +90,7 @@ export default () => {
       <SEO title="Necesito..." />
       <form style={{ width: '90%', maxWidth: '960px', margin: '0 auto' }}>
         <FormGroup>
-          <FormControl>
+          <FormControl className={classes.formControl}>
             <InputLabel htmlFor="category-simple">Tipo</InputLabel>
             <Select
               autoWidth
@@ -79,7 +101,7 @@ export default () => {
               <MenuItem value="tip">Dato</MenuItem>
             </Select>
           </FormControl>
-          <FormControl>
+          <FormControl className={classes.formControl}>
             <InputLabel htmlFor="category-simple">Categoria</InputLabel>
             <Select
               autoWidth
@@ -135,6 +157,32 @@ export default () => {
                 Número, instagram o alguna forma de contactarte.
               </FormHelperText>
             )}
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="category-simple">Región</InputLabel>
+            <Select
+              autoWidth
+              value={formal.values.region}
+              onChange={e => formal.change('region', e.target.value)}>
+              {regiones.map((region, i) => (
+                <MenuItem value={i} key={i}>
+                  {region}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="category-simple">Comuna</InputLabel>
+            <Select
+              autoWidth
+              value={formal.values.comuna}
+              onChange={e => formal.change('comuna', e.target.value)}>
+              {comunas.map((comuna, i) => (
+                <MenuItem value={i} key={i}>
+                  {comuna}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
           <FormControl>
             <TextField

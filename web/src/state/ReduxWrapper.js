@@ -11,12 +11,14 @@ import { app } from '../util/firebase'
 
 import { reducer as categoriesReducer } from './CategoriesRedux'
 import { reducer as detailReducer } from './DetailRedux'
+import { reducer as regionsReducer } from './RegionsAndDistrictsRedux'
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   categories: categoriesReducer,
-  detail: detailReducer
+  detail: detailReducer,
+  regions: regionsReducer
 })
 
 const initialState = {
