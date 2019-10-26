@@ -23,7 +23,6 @@ const equality = (prev, curr) =>
 const withoutPrefix = path => path.split(__PATH_PREFIX__).join('')
 
 const Layout = ({ children }) => {
-  const user = useSelector(state => state.firebase.auth, equality)
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -33,8 +32,6 @@ const Layout = ({ children }) => {
       }
     }
   `)
-  if (!isLoaded(user)) return <span>Loading...</span>
-  if (isEmpty(user)) navigate('/auth')
   return (
     <>
       <Helmet>

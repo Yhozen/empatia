@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useFirestore } from 'react-redux-firebase'
+import { useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { navigate } from 'gatsby'
+
 import * as yup from 'yup'
 import useFormal from '@kevinwolf/formal'
 import { createSelector } from 'reselect'
@@ -23,10 +25,8 @@ import Select from '@material-ui/core/Select'
 import Snackbar from '@material-ui/core/Snackbar'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
-
 import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
-import Chip from '@material-ui/core/Chip'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -67,6 +67,7 @@ export default () => {
   const firestore = useFirestore()
   const categories = useSelector(getList)
   const regiones = useSelector(regionesSelector)
+  const comunas = useSelector(comunasSelector)
   const user = useSelector(state => state.firebase.auth)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
@@ -83,12 +84,10 @@ export default () => {
     getData,
     data => data[formal.values.region].comunas
   )
-  const comunas = useSelector(comunasSelector)
-  const [personName, setPersonName] = React.useState([])
+
+  if (!isLoaded(user)) return <span>Loading...</span>
+  if (isEmpty(user)) navigate('/auth')
   const handleClick = () => setOpen(true)
-  const handleChange = event => {
-    setPersonName(event.target.value)
-  }
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
