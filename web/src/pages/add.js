@@ -66,11 +66,10 @@ const regionesSelector = createSelector(
 export default () => {
   const firestore = useFirestore()
   const categories = useSelector(getList)
-  const regiones = useSelector(regionesSelector)
-  const comunas = useSelector(comunasSelector)
   const user = useSelector(state => state.firebase.auth)
   const [open, setOpen] = useState(false)
   const classes = useStyles()
+  const regiones = useSelector(regionesSelector)
   const formal = useFormal(initialValues, {
     schema,
     onSubmit: values =>
@@ -79,11 +78,11 @@ export default () => {
         .add({ ...values, author: user.uid, displayName: getDisplayName(user) })
         .then(handleClick)
   })
-
   const comunasSelector = createSelector(
     getData,
     data => data[formal.values.region].comunas
   )
+  const comunas = useSelector(comunasSelector)
 
   if (!isLoaded(user)) return <span>Loading...</span>
   if (isEmpty(user)) navigate('/auth')
