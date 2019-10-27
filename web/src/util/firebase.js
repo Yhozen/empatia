@@ -23,9 +23,6 @@ if (process.env.NODE_ENV === 'development') {
       ? firebase.initializeApp(firebaseConfig)
       : null
 } else {
-  app =
-    typeof window !== `undefined`
-      ? firebase.initializeApp(firebaseConfig)
-      : null
+  app = firebase.initializeApp(firebaseConfig)
 }
 export { app }
