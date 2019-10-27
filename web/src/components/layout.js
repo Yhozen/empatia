@@ -20,7 +20,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const equality = (prev, curr) =>
   prev.uid === curr.uid && prev.isLoaded === curr.isLoaded
 
-const withoutPrefix = path => path.split(__PATH_PREFIX__).join('')
+const withoutPrefix = path =>
+  __PATH_PREFIX__ && path.split(__PATH_PREFIX__).join('')
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
