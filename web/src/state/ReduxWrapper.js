@@ -9,6 +9,15 @@ import { createFirestoreInstance, firestoreReducer } from 'redux-firestore'
 
 import { app } from '../util/firebase'
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import pink from '@material-ui/core/colors/pink'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: pink
+  }
+})
+
 import { reducer as categoriesReducer } from './CategoriesRedux'
 import { reducer as detailReducer } from './DetailRedux'
 import { reducer as regionsReducer } from './RegionsAndDistrictsRedux'
@@ -56,7 +65,7 @@ export default ({ element }) => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider dispatch={store.dispatch} {...rrfProps}>
-        {element}
+        <ThemeProvider theme={theme}>{element}</ThemeProvider>
       </ReactReduxFirebaseProvider>
     </Provider>
   )

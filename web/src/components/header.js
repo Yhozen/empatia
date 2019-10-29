@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import { HEADER_HEIGHT } from '../configs'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   toolbar: {
-    minHeight: 106.2,
+    minHeight: HEADER_HEIGHT,
     alignItems: 'center',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2)

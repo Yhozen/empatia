@@ -4,11 +4,10 @@ import useWindowSize from '../../util/useWindowSize'
 
 import Marker from './marker'
 import styles from './gmap-styles.json'
+import { HEADER_HEIGHT, BOTTOM_BAR_HEIGHT } from '../../configs'
 
 const GOOGLE_MAP_KEY = process.env.GATSBY_GOOGLE_MAP_KEY
 
-const BOTTOM_BAR_HEIGHT = 56
-const HEADER_HEIGHT = 106.2
 const CENTER = {
   lat: -33.4201548,
   lng: -70.6345987
