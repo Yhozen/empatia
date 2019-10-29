@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontWeight: 'bold'
   }
 }))
 const Header = ({ siteTitle }) => {

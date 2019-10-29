@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Yo te ayudo',
+    title: 'YoTeAyudo',
     description: 'Plataforma para ayudar.',
     author: '@Yhozen'
   },
