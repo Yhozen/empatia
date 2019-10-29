@@ -162,7 +162,8 @@ export default ({ filter }) => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          alignItems: 'center'
+          alignItems: 'center',
+          overflowX: 'auto'
         }}>
         <Switch
           checked={locationFilter}
