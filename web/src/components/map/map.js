@@ -50,7 +50,7 @@ export default () => {
     <div style={{ height: height - (BOTTOM_BAR_HEIGHT + HEADER_HEIGHT) }}>
       <GoogleMapReact
         options={mapOptions}
-        bootstrapURLKeys={{ key: GOOGLE_MAP_KEY }}
+        bootstrapURLKeys={{ key: GOOGLE_MAP_KEY, libraries: 'geometry' }}
         defaultCenter={CENTER}
         defaultZoom={15}
         yesIWantToUseGoogleMapApiInternals
