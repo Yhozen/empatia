@@ -15,7 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
-import { pink, green, blue } from '@material-ui/core/colors'
+import { blue } from '@material-ui/core/colors'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -49,9 +49,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default ({ type }) => {
+export default props => {
   const classes = useStyles()
-  const messages = useSelector(getList)
+  const categories = useSelector(getList)
   const dispatch = useDispatch()
 
   const onClickItem = id => {
@@ -64,7 +64,7 @@ export default ({ type }) => {
       <SEO title="Filtrar por categorias" />
       <Typography color="textSecondary" gutterBottom></Typography>
       <List className={classes.list}>
-        {messages.map(
+        {categories.map(
           ({
             id,
             primary,

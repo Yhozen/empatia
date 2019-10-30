@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Categories from '../components/categories'
 
-export default () => <Categories type="needed" />
+export default Categories
