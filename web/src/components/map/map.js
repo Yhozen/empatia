@@ -9,8 +9,8 @@ import { HEADER_HEIGHT, BOTTOM_BAR_HEIGHT } from '../../configs'
 const GOOGLE_MAP_KEY = process.env.GATSBY_GOOGLE_MAP_KEY
 
 const CENTER = {
-  lat: -33.4201548,
-  lng: -70.6345987
+  lat: -33.4370935,
+  lng: -70.6336092
 }
 const mapOptions = {
   gestureHandling: 'greedy',
@@ -52,7 +52,7 @@ export default () => {
         options={mapOptions}
         bootstrapURLKeys={{ key: GOOGLE_MAP_KEY }}
         defaultCenter={CENTER}
-        defaultZoom={13}
+        defaultZoom={15}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={onGoogleApiLoaded}
       />
