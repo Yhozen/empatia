@@ -9,17 +9,8 @@ import { createFirestoreInstance, firestoreReducer } from 'redux-firestore'
 
 import { app } from '../util/firebase'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import pink from '@material-ui/core/colors/pink'
-
-const theme = createMuiTheme({
-  palette: {
-    primary: pink
-  },
-  typography: {
-    fontFamily: '"Assistant","Roboto", "Helvetica", "Arial", sans-serif;'
-  }
-})
+import { ThemeProvider } from '@material-ui/core/styles'
+import theme from '../styles/theme'
 
 import { reducer as categoriesReducer } from './CategoriesRedux'
 import { reducer as detailReducer } from './DetailRedux'
