@@ -31,6 +31,7 @@ import Switch from '@material-ui/core/Switch'
 import { green, pink, blue } from '@material-ui/core/colors'
 
 import icons from '../util/iconList'
+import { APP_COLORS } from '../configs'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -65,12 +66,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const type = 'needed'
-
-const colors = {
-  needed: green[500],
-  offered: pink[500],
-  tip: blue[500]
-}
 
 const selectedDataSelector = createSelector(
   getList,
@@ -214,7 +209,7 @@ export default ({ filter }) => {
               id,
               category,
               type,
-              backgroundColor = colors[type],
+              backgroundColor = APP_COLORS[type],
               color = '#eee'
             }) => (
               <React.Fragment key={id}>
